@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Data Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff; /* White background */
+            color: #333333; /* Dark text color for contrast */
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #f9f9f9; /* Light gray background for content */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            width: 100%;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #ffffff; /* White background for charts */
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        canvas {
+            width: 100%;
+            height: 400px;
+        }
+        .company-logo {
+            width: 150px;
+            height: auto;
+            margin: 20px;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            border: 1px solid transparent;
+            margin-right: 10px;
+        }
+        nav a:hover {
+            color: #0056b3;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+        }
+        .page {
+            display: none; /* Initially hide all pages */
+        }
+        .active {
+            display: block; /* Display active page */
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="#" onclick="showPage('dashboardPage')">Dashboard</a>
+        <a href="#" onclick="showPage('additionalPage')">Additional Visualization</a>
+        <a href="#" onclick="showPage('researchPage')">Research & Results</a>
+    </nav>
+
+    <!-- Dashboard Page (Page 1) -->
+    <div id="dashboardPage" class="container page active">
+        <h1>Stock Data Dashboard</h1>
+
+        <!-- Dropdown to select year -->
+        <select id="yearDropdown" onchange="updateCharts()">
+            <option value="all">All Years</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <!-- More options can be added dynamically -->
+        </select>
+
+        <!-- Company logo -->
+        <img src="Schneider_Electric.png" alt="Company Logo" class="company-logo">
+
+        <div class="chart-container">
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <div class="button-container">
+            <!-- Buttons for chart types -->
+            <button onclick="setChartType('line')">Line Chart</button>
+            <button onclick="setChartType('bar')">Bar Chart</button>
+            <button onclick="setChartType('pie')">Pie Chart</button>
+        </div>
+    </div>
+
+    <!-- Additional Visualization Page (Page 2) -->
+    <div id="additionalPage" class="container page">
+        <h1>Additional Stock Data Visualization</h1>
+        <div class="chart-container">
+            <canvas id="additionalChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Research and Results Page (Page 3) -->
+    <div id="researchPage" class="container page">
+        <h1>Research and Results</h1>
+        <p>
+            In this project, we performed an analysis of the stock data for Schneider Electric, focusing on years 2012 and 2013. 
+            Our objective was to analyze key metrics such as closing prices, volumes, and the high-low price range to understand the stock's performance.
+        </p>
+        <h2>Key Findings</h2>
+        <ul>
+            <li>
+                <strong>Closing Prices:</strong> The stock showed consistent growth from 2012 to 2013. In 2012, the highest closing price reached 69.60 INR, while in 2013, it went up to 79.60 INR, indicating a positive trend in the company's stock value.
+            </li>
+            <li>
+                <strong>Trading Volume:</strong> The trading volume remained relatively stable, with some spikes during certain months. Higher trading volumes indicate increased investor interest in the stock.
+            </li>
+            <li>
+                <strong>High-Low Price Range:</strong> The stock's high prices reached as much as 81.25 INR in 2013, while the lowest price remained above 70 INR, showing strong support levels and investor confidence.
+            </li>
+        </ul>
+        <h2>Methodology</h2>
+        <p>
+            We used Chart.js to visualize the data and provide interactive elements. The dashboard allows users to:
+        </p>
+        <ul>
+            <li>Select different years to view data for specific periods.</li>
+            <li>Switch between chart types (line, bar, and pie) to gain different perspectives on the data.</li>
+            <li>View additional visualizations such as trading volumes.</li>
+        </ul>
+        <h2>Conclusion</h2>
+        <p>
+            The analysis suggests that Schneider Electric's stock experienced significant growth between 2012 and 2013. 
+            This analysis can serve as a valuable resource for investors seeking to understand the stock's performance over time. 
+            Further analysis could include comparing Schneider Electric's performance with its competitors or analyzing external market factors that influenced these trends.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Javafile.js"></script>
+
+    <!-- JavaScript for Page Navigation -->
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
